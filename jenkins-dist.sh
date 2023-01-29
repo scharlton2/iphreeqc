@@ -140,7 +140,7 @@ DISTNAME="${NAME}${REPOS_TAG}-${VERSION}${VER_NUMTAG}"
 DIST_SANDBOX=.dist_sandbox
 #DISTPATH="$DIST_SANDBOX/$DISTNAME"
 DISTPATH="."
-GIT_COMMIT=`git rev-parse HEAD`
+GIT_COMMIT="f5cb62067c371d11e1cf9a04170ea342fea8300d"
 
 echo "Distribution will be named: $DISTNAME"
 echo " release branch's revision: $REVISION"
