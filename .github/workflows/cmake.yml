@@ -38,6 +38,29 @@ jobs:
           echo DATE_RFC_3339=$(date --rfc-3339=date)                                                                >> $GITHUB_OUTPUT
           echo INSTALL_HTMLHELP=false                                                                               >> $GITHUB_OUTPUT
 
+  results:
+    name: display outputs
+    needs: init
+    runs-on: ubuntu-latest
+    steps:
+      - name: results
+        run: |
+          echo VER="${{ needs.init.outputs.VER }}"
+          echo REL="${{ needs.init.outputs.REL }}"
+          echo DATE="${{ needs.init.outputs.DATE }}"
+          echo DATE_RFC_3339="${{ needs.init.outputs.DATE_RFC_3339 }}"
+          echo INSTALL_HTMLHELP="${{ needs.init.outputs.INSTALL_HTMLHELP }}"
+
+      - name: Run if true
+        if: needs.init.outputs.INSTALL_HTMLHELP == 'true'
+        run: echo "Flag is true, running this step"
+    
+      - name: Run if false
+        if: needs.init.outputs.INSTALL_HTMLHELP == 'false'
+        run: echo "Flag is false, running this step"
+
+      - name: Force failure
+        run: exit 1        
 
   test:
     strategy:
@@ -79,6 +102,10 @@ jobs:
     runs-on: windows-latest
 
     steps:
+      - name: Check outputs
+        run: echo ${{ needs.init.outputs.INSTALL_HTMLHELP }}
+
+
       - name: Checkout phreeqc3-HTMLversion
         uses: actions/checkout@v4
         with:
