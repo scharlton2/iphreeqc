@@ -136,7 +136,7 @@ TEST(TestIPhreeqcLib, TestLoadDatabase)
 	{
 		for (int i = 0; i < 10; ++i)
 		{
-			ASSERT_EQ(true, ::FileExists(FILES[j].c_str()));
+			ASSERT_EQ(true, ::FileExists(FILES[j].c_str())) << FILES[j].c_str() << " doesn't exist";
 			ASSERT_TRUE(::FileSize(FILES[j].c_str()) > 0);
 			ASSERT_EQ(0, ::LoadDatabase(n, FILES[j].c_str()));
 		}
@@ -451,7 +451,7 @@ TEST(TestIPhreeqcLib, TestRunString)
 	::SetLogFileOn(n, 0);
 	::SetSelectedOutputFileOn(n, 0);
 	::SetDumpFileOn(n, 0);
-	ASSERT_EQ(false, ::FileExists(OUTPUT_FILE));
+	ASSERT_EQ(false, ::FileExists(OUTPUT_FILE)) << OUTPUT_FILE << " exists";
 	ASSERT_EQ(0, ::RunString(n, input));
 	ASSERT_EQ(true, ::FileExists(OUTPUT_FILE));
 	ASSERT_TRUE(::FileSize(OUTPUT_FILE) > 0);
@@ -461,7 +461,7 @@ TEST(TestIPhreeqcLib, TestRunString)
 	}
 	if (::FileExists(OUTPUT_FILE))
 	{
-		ASSERT_TRUE(::DeleteFile(OUTPUT_FILE));
+		ASSERT_TRUE(::DeleteFile(OUTPUT_FILE)) << "Failed to delete " << OUTPUT_FILE;
 	}
 }
 
@@ -1575,7 +1575,7 @@ void TestFileOnOff(const char* FILENAME_FORMAT, int output_file_on, int error_fi
 	ASSERT_EQ(IPQ_OK, ::SetSelectedOutputFileOn(n, 0));
 	ASSERT_EQ(IPQ_OK, ::SetDumpStringOn(n, 0));
 	ASSERT_EQ(0, ::RunAccumulated(n));
-	ASSERT_EQ(false, ::FileExists(FILENAME));
+	ASSERT_EQ(false, ::FileExists(FILENAME)) << FILENAME << " exists";
 	ASSERT_EQ(0, ::LoadDatabase(n, "phreeqc.dat"));
 
 	// add solution block

@@ -9,6 +9,7 @@
 #include "Phreeqc.h" /* snprintf */
 
 #if defined(_WIN32) || defined(__CYGWIN32__)
+/*
 bool FileExists(const char *szPathName)
 {
 	SECURITY_ATTRIBUTES sa;
@@ -22,6 +23,7 @@ bool FileExists(const char *szPathName)
 	{
 		char buffer[100];
 		snprintf(buffer, sizeof(buffer), "Could not open file (error %d)\n", GetLastError());
+		printf(buffer);
 		retValue = false;
 	}
 	else
@@ -30,6 +32,12 @@ bool FileExists(const char *szPathName)
 		::CloseHandle(fileHandle);
 	}
 	return retValue;
+}
+*/
+bool FileExists(const char *szPathName)
+{
+	std::ifstream file(szPathName);
+	return file.good();
 }
 #else
 bool FileExists(const char *szPathName)

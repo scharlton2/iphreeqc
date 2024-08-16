@@ -35,7 +35,8 @@ TEST(TestIPhreeqc, TestLoadDatabase)
 		IPhreeqc obj;
 		for (int i = 0; i < 10; ++i)
 		{
-			ASSERT_EQ(true, ::FileExists(FILES[j].c_str()));
+			//ASSERT_EQ(true, ::FileExists(FILES[j].c_str())) << "i = " << i << ", " << FILES[j].c_str() << " doesn't exist";
+			ASSERT_TRUE(::FileExists(FILES[j].c_str())) << "i = " << i << ", " << FILES[j].c_str() << " doesn't exist";
 			ASSERT_TRUE(::FileSize(FILES[j].c_str()) > 0);
 			ASSERT_EQ(0, obj.LoadDatabase(FILES[j].c_str()));
 		}
@@ -309,7 +310,7 @@ TEST(TestIPhreeqc, TestSetErrorOn2)
 	{
 		::DeleteFile(ERR_FILENAME);
 	}
-	ASSERT_EQ(false, ::FileExists(ERR_FILENAME));
+	ASSERT_EQ(false, ::FileExists(ERR_FILENAME)) << ERR_FILENAME << " exists";
 
 	obj.SetErrorFileOn(true);
 	obj.SetErrorFileName(ERR_FILENAME);
@@ -464,7 +465,7 @@ TEST(TestIPhreeqc, TestDatabaseNotFirstKeyword)
 
 TEST(TestIPhreeqc, TestRunWithErrors)
 {
-	const char dump_file[] = "error.inp";
+	const char dump_file[] = "TestIPhreeqc.TestRunWithErrors.error.inp";
 	IPhreeqc obj;
 
 	FileTest dfile(dump_file);
@@ -496,7 +497,7 @@ TEST(TestIPhreeqc, TestRunWithErrors)
 
 	ASSERT_EQ(std::string(expected), std::string(err));
 
-	ASSERT_TRUE(dfile.VerifyExists());
+	ASSERT_TRUE(dfile.VerifyExists()) << dump_file << " doesn't exist";
 	ASSERT_TRUE(dfile.Size() > 0);
 }
 
