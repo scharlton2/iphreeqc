@@ -89,7 +89,7 @@ OBJECTS.phreeqcpp = \
 
 OBJECTS = $(OBJECTS.root) $(OBJECTS.phreeqcpp)
 
-PKG_CPPFLAGS =-I. -Iphreeqcpp -DNDEBUG -DR_SO -DSWIG_SHARED_OBJ -DNO_UTF8_ENCODING
+PKG_CPPFLAGS =-I. -Iphreeqcpp -DNDEBUG -DR_SO -DSWIG_SHARED_OBJ
 
 all: $(SHLIB)
 
