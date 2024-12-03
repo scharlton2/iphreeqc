@@ -277,10 +277,10 @@ jobs:
         working-directory: R/phreeqc
         shell: Rscript {0}
 
-      - name: roxygen2::roxygenise()
-        run: roxygen2::roxygenise()
-        working-directory: R/phreeqc
-        shell: Rscript {0}
+      # - name: roxygen2::roxygenise()
+      #   run: roxygen2::roxygenise()
+      #   working-directory: R/phreeqc
+      #   shell: Rscript {0}
 
       - name: Check
         uses: r-lib/actions/check-r-package@v2
